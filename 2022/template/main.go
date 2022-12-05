@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 )
 
 func main() {
@@ -12,8 +13,11 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println("Part1: ", part1(string(input)))
-	fmt.Println("Part2: ", part2(string(input)))
+	start := time.Now()
+	fmt.Printf("Part1: %d took %s \n", part1(string(input)), time.Since(start))
+	
+	start = time.Now()
+	fmt.Printf("Part2: %d took %s \n", part2(string(input)), time.Since(start))
 }
 
 func part1(input string) int {
