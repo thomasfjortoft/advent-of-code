@@ -6,7 +6,6 @@ Following the [advent of code](https://adventofcode.com).
 
 I will try to solve all with a language that I'm not familiar with. Rust is the one this year.
 
-## TODO
+## 2022
 
-- 11 part 2
-- 13 part 2
+Solving this year in golang. I know the language, but it has been some time since last I wrote any go code.
