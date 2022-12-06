@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 	"time"
 )
 
@@ -22,35 +21,25 @@ func main() {
 }
 
 func part1(input string) int {
-	var answer int
-	list := strings.Split(input, "")
-	temp := list[:4]
-	for i := 4; i < len(list); i++ {
-		if !duplicates(temp) {
-			answer = i
-			break
+	for i := 4; i < len(input); i++ {
+		if !duplicates(input[i-3 : i+1]) {
+			return i + 1
 		}
-		temp = list[i-3 : i+1]
 	}
-	return answer
+	return 0
 }
 
 func part2(input string) int {
-	var answer int
-	list := strings.Split(input, "")
-	temp := list[:14]
-	for i := 14; i < len(list); i++ {
-		if !duplicates(temp) {
-			answer = i
-			break
+	for i := 14; i < len(input); i++ {
+		if !duplicates(input[i-13 : i+1]) {
+			return i + 1
 		}
-		temp = list[i-13 : i+1]
 	}
-	return answer
+	return 0
 }
 
-func duplicates(intSlice []string) bool {
-	keys := make(map[string]bool)
+func duplicates(intSlice string) bool {
+	keys := make(map[rune]bool)
 	for _, entry := range intSlice {
 		if _, value := keys[entry]; !value {
 			keys[entry] = true
