@@ -11,7 +11,7 @@ func Test_part1(t *testing.T) {
 	tests := []struct {
 		name  string
 		input string
-		want  int64
+		want  int
 	}{
 		{"actual", string(input), 95437},
 		{"actual", string(input2), 2031851},
@@ -32,7 +32,7 @@ func Test_part2(t *testing.T) {
 		input string
 		want  int
 	}{
-		{"actual", string(input), 45000},
+		{"actual", string(input), 24933642},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

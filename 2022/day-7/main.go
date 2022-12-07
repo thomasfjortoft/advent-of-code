@@ -22,7 +22,34 @@ func main() {
 	fmt.Printf("Part2: %d took %s \n", part2(string(input)), time.Since(start))
 }
 
-func part1(input string) int64 {
+func part1(input string) int {
+	dirContent := getFolderContent(input)
+	var total int
+
+	for key := range dirContent {
+		if out := getFolderSize(dirContent, key); out <= 100000 {
+			total += out
+		}
+	}
+
+	return total
+}
+
+func part2(input string) int {
+	dirContent := getFolderContent(input)
+	rootSize := getFolderSize(dirContent, "/")
+	smallest := 100000000
+
+	for key := range dirContent {
+		if size := getFolderSize(dirContent, key); size >= 30000000-(70000000-rootSize) && size < smallest {
+			smallest = size
+		}
+	}
+
+	return smallest
+}
+
+func getFolderContent(input string) map[string][]string {
 	dirContent := make(map[string][]string)
 	var pathDir string
 	var tempDirList []string
@@ -36,20 +63,16 @@ func part1(input string) int64 {
 			fmt.Sscanf(commandOrOutput, "$ %s %s", &command, &path)
 
 			if path == ".." {
-
 				pathList = pathList[:len(pathList)-1]
 			} else if command == "cd" {
 				if len(tempDirList) > 0 {
 					dirContent[pathDir] = tempDirList
+					tempDirList = nil
 				}
-				pathList = append(pathList, path)
-				
-				pathDir = strings.Join(pathList, "-")
-				
-			} else if command == "ls" {
-				tempDirList = nil
-			}
 
+				pathList = append(pathList, path)
+				pathDir = strings.Join(pathList, "-")
+			}
 		} else {
 			tempDirList = append(tempDirList, commandOrOutput)
 		}
@@ -57,27 +80,17 @@ func part1(input string) int64 {
 
 	dirContent[pathDir] = tempDirList
 
-	var total int64
-	for key := range dirContent {
-		if out := getFolderContent(dirContent, key); out <= 100000 {
-			total += out
-		}
-	}
-
-	return total
+	return dirContent
 }
 
-func part2(input string) int {
-	return 0
-}
-
-func getFolderContent(main map[string][]string, path string) int64 {
-	var size int64
+func getFolderSize(main map[string][]string, path string) int {
+	var size int
 	for _, item := range main[path] {
-		if s := strings.Split(item, " "); strings.HasPrefix(s[0], "dir") {
-			size += getFolderContent(main, path + "-" + strings.Split(item, " ")[1])
+		splittedItem := strings.Split(item, " ")
+		if strings.HasPrefix(splittedItem[0], "dir") {
+			size += getFolderSize(main, path+"-"+splittedItem[1])
 		} else {
-			i, _ := strconv.ParseInt(strings.Split(item, " ")[0], 10, 64)
+			i, _ := strconv.Atoi(splittedItem[0])
 			size += i
 		}
 	}
