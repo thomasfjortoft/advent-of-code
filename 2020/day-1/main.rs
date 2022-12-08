@@ -28,7 +28,7 @@ fn find_values_from_two(vec: &Vec<i64>) -> () {
         }
     }
 }
-fn find_values_from_tre(vec: &Vec<i64>) -> () {
+fn find_values_from_three(vec: &Vec<i64>) -> () {
     println!("start");
     for x in vec {
         for y in vec {

@@ -1,7 +1,7 @@
 use std::time::Instant;
 
 fn main() {
-    let input = parse_input(include_str!("input_test"));
+    let input = parse_input(include_str!("input"));
     
     println!("Results for Day 1");
     println!("============================");
@@ -69,7 +69,6 @@ pub fn part_01(input: Vec<&str>) -> usize {
         }
         list.push(pointer);
     }
-    println!("{:?}", list);
     acc as usize
 }
 
