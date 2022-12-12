@@ -127,7 +127,6 @@ pub fn part_02(input: Vec<&str>) -> usize {
             },
             _ => println!("not supported")
         }
-        println!("command={} --> P_LONG={}, P_LAT={}, WAY_LONG={}, WAY_LAT={}", elem, pos_longitude, pos_latitude, waypoint_longitude, waypoint_latitude);
     }
     (pos_latitude.abs() + pos_longitude.abs()) as usize
 }
